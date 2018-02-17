@@ -18,11 +18,6 @@
 # under the License.
 #
 -->
-Open Source Remote Control Mobile Application
+# Cordova Hooks
 
-License: Apache
-
-Created using Cordova
-
-Author: Joseph Francis
-hookedupjoe@gmail.com
+Cordova Hooks represent special scripts which could be added by application and plugin developers or even by your own build system  to customize cordova commands. See Hooks Guide for more details:  http://cordova.apache.org/docs/en/edge/guide_appdev_hooks_index.md.html#Hooks%20Guide.

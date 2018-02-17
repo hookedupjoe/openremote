@@ -18,11 +18,7 @@
 # under the License.
 #
 -->
-Open Source Remote Control Mobile Application
 
-License: Apache
+# Tizen Splash Screen
 
-Created using Cordova
-
-Author: Joseph Francis
-hookedupjoe@gmail.com
+Splash screens are unsupported on the Tizen platform.
