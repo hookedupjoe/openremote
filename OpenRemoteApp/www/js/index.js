@@ -61,7 +61,6 @@
     function setup(){
         setupBindings();
         refreshFromStore();
-        showName.innerHTML = "Started";
     }
     
     function onBtnNameUpdateClick(){
