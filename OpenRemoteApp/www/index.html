@@ -33,23 +33,37 @@
         <meta name="msapplication-tap-highlight" content="no">
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
         <link rel="stylesheet" type="text/css" href="css/index.css">
+        <script src='js/hucore.js'></script>
         <title>Hookedup Remote</title>
     </head>
     <body>
+  
         <div class="app">
-            <h1>Hookedup Remote</h1>
-            <div style="display:none;" id="deviceready" class="blink">
-                <p class="event listening">Connecting to Device</p>
-                <p class="event received">Device is Ready</p>
-            </div>
-            <input class="input-field" id="fldName"></input>
-            <hr />
-            <div id = "showName" >No Name</div>
-            <button id = "btnUpdateName">UPDATE NAME</button>
-            <hr />
+      
+                <div style="position:fixed; width: 100%;">
+                        <nav id="nb" class="nb">
+                          <div>
+                             <div id="sti" >LED Controller</div>
+                          </div>
+                          <div class="navbar-tb">
+                              <button id="btnHome" class="btn tb dis">Home</button> 
+                              <button id="btnBack" class="btn tb dis">← Back</button> 	
+                              <button id="btnColDlg" class="btn tb">Color</button> 	
+                          </div>
+                          </nav>
+                      </div>
+                      <div id="oa">
+                      <div id="op"></div>
+                      <canvas id="og" />
+                      </div>
+                      
+                
+                      
+         
         </div>
         <script type="text/javascript" src="cordova.js"></script>
-        <script src='js/hucore.js'></script>
+        <script src="js/cdlg.js"></script>
+        <script src="js/huapp.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
     </body>
 </html>

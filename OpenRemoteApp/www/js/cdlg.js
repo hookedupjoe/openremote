@@ -48,10 +48,11 @@ function rgb2hsv(tr,tg,tb) {
 	};
 
 	
-(function(){var CDlgMU = '<div id="coldlg" class="dlg" style="display:none;"><canvas id="cpk" var="1" width="340px" height="300px"></canvas><div class="ctls"><div><button onclick="dlgCol.selectColor();" class="btn fw">OK</button></div><div><button onclick="dlgCol.hide();" class="btn fw wb">Cancel</button></div><div><label>Color</label><span id="pVal" /></span></div><div class="po-s"><label>Number</label><span type="text" id="pNum" />0</span></div><div class="po-h"><label>RGB</label><span type="text" id="pRGB" />255,0,0</span></div><input type="hidden" id="hexVal" /><input type="hidden" id="rgbVal" /></div></div>'
-var tmpNew = (_ce('div'));
-tmpNew.innerHTML = CDlgMU;
-document.getElementsByTagName('body')[0].appendChild(tmpNew);
+(function(){var CDlgMU = '<div id="coldlg" class="dlg" style="display:none;"><canvas id="cpk" var="1" width="340px" height="300px"></canvas><div class="ctls"><div><button id="cdlgok" class="btn fw">OK</button></div><div><button id="cdlgcancel" class="btn fw wb">Cancel</button></div><div><label>Color</label><span id="pVal" /></span></div><div class="po-s"><label>Number</label><span type="text" id="pNum" />0</span></div><div class="po-h"><label>RGB</label><span type="text" id="pRGB" />255,0,0</span></div><input type="hidden" id="hexVal" /><input type="hidden" id="rgbVal" /></div></div>'
+	var tmpNew = (_ce('div'));
+	tmpNew.innerHTML = CDlgMU;
+	document.getElementsByTagName('body')[0].appendChild(tmpNew);
+
 })();
 
 CDlg = function(cb) {
@@ -77,6 +78,8 @@ CDlg = function(cb) {
 	cv = core.byId("cpk");
 	console.log(cv);
 	ctx = cv.getContext("2d");
+	_aEvt(core.byId("cdlgcancel"), "click", this.hide);	
+
 	
 	this.details = function(){
 		return {hex:_sc,rgb:_srb,hsv:_shv,num:_scm};

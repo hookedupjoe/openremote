@@ -1,15 +1,9 @@
-//--- Main Application Page
-//--- hookedup, inc.  (c) 2015
+(function(){
+	
+		//tmpParent.call(me,theData,theOptions);
+        window.OpenMenu = {};
 
-;(function(){
-	
-	var tmpParent = hu.Object;
-	
-    var App = function(theData,theOptions){
-	
-		tmpParent.call(me,theData,theOptions);
-
-		var me = this,
+		var me = window.OpenMenu,
 			dat = {menu:{}},
 			btnHome, //Home
 			btnBack, //Back
@@ -28,6 +22,7 @@
 		}
 		me.home = home;
 		function home(){
+			
 			run('m','&p=home');
 			return false;
 		}
@@ -87,7 +82,6 @@ hu.dbug("dlgColCl");
 		   var tmpURL = '/api?a=' + theAction + theParams;
 		   if( theAction == 'm' ){
 				if( theIsGoingBack !== true ){
-
 					addToMenus(theAction, theParams);
 				}
 				var tmpMenuName = (theParams || '').replace('&p=','');
@@ -183,17 +177,66 @@ hu.dbug("dlgColCl");
 		}
 		
 		function loadMenuObj(theMenu){
+            //alert('run loadmgo1')
+
 			setOutputToPages();
+            //alert('run loadmgo2')
 			loadItems(theMenu.items);
+            //alert('run loadmgo3')
 			homeEnabled(!theMenu.isHome);
+            //alert('run loadmgo5')
 			backEnabled(menusAt>=0);
 			//backEnabled(true);
 		}
 		function loadMenu(theName){
-			if(dat.menu[theName]) return loadMenuObj(dat.menu[theName]);
-			hu.onGet = menuLoaded;
-			var tmpURL = './om/menu/' + theName + '.js';
-			hu.get(tmpURL);			
+			//if(dat.menu[theName]) return loadMenuObj(dat.menu[theName]);
+			//hu.onGet = menuLoaded;
+			//var tmpURL = './om/menu/' + theName + '.js';
+			//hu.get(tmpURL);	
+			var tmpMenu = {
+				"res": true,
+				"details": {
+					"id": "home",
+					"isHome": false,
+					"title": "LED Controller",
+					"items": [{
+						"html": "Set Pattern",
+						"id": "btnpat",
+						"tag": "button",
+						"class": "btn fw",
+						"act": "m",
+						"p-p": "patterns"
+					},
+					{
+						"html": "Set Solid Solor",
+						"id": "btncol",
+						"tag": "button",
+						"class": "btn fw",
+						"act": "m",
+						"p-p": "colors"
+					},
+					{
+						"html": "Resume Slideshow",
+						"id": "btnSSResume",
+						"tag": "button",
+						"class": "btn fw",
+						"act": "slideshow",
+						"p-p": "resume"
+					},
+					{
+						"html": "Config",
+						"id": "btnConfig",
+						"tag": "button",
+						"class": "btn fw",
+						"act": "m",
+						"p-p": "config"
+					}]
+				}
+			};
+
+			return loadMenuObj(tmpMenu.details);
+
+
 		}
 
 		
@@ -219,7 +262,7 @@ hu.dbug("dlgColCl");
 		
 		
 		me.load = function() {
-			_aEvt(window, "resize", me.resize);						
+			//_aEvt(window, "resize", me.resize);						
 			
 			outPage = hu.byId('op');
 			outGraphics = hu.byId('og');
@@ -232,7 +275,6 @@ hu.dbug("dlgColCl");
 			setOutputToPages();
 			
 			window.dlgCol = new CDlg({ok:dlgColOK,click:dlgColCl});
-console.log(typeof window.dlgCol);
 					
 			loadMenu('home');
 		}
@@ -245,9 +287,5 @@ console.log(typeof window.dlgCol);
 
 		
 //=== End Application		
-	};
-	
-	hu.inh(App, tmpParent);
-	hu.App = App;	
-
+    
 })();

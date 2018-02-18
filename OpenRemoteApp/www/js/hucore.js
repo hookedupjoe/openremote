@@ -364,8 +364,10 @@ _hep.getData = function(){
 
 	//Inhereit
 	theCore.inh = function(theChild, theParent){
+		//alert('inh theParent ' + typeof(theParent) + " ch " + typeof(theChild) ) 
 		theChild.prototype = Object.create(theParent.prototype);
 		theChild.prototype.constructor = theChild;
+		//alert('inh theParent done')
 	};
 	
 	//jQuery like selector

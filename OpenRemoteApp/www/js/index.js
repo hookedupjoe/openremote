@@ -1,4 +1,4 @@
-(function(){
+(function(hu){
     //--- Start Bubble
     
     /*
@@ -37,14 +37,14 @@
         },
         // Update DOM on a Received Event
         receivedEvent: function(id) {
-            var parentElement = document.getElementById(id);
-            var listeningElement = parentElement.querySelector('.listening');
-            var receivedElement = parentElement.querySelector('.received');
+            // var parentElement = document.getElementById(id);
+            // var listeningElement = parentElement.querySelector('.listening');
+            // var receivedElement = parentElement.querySelector('.received');
     
-            listeningElement.setAttribute('style', 'display:none;');
-            receivedElement.setAttribute('style', 'display:block;');
+            // listeningElement.setAttribute('style', 'display:none;');
+            // receivedElement.setAttribute('style', 'display:block;');
     
-            console.log('Received Event: ' + id);
+            // console.log('Received Event: ' + id);
         }
     };
     
@@ -52,16 +52,21 @@
     
     //---- general variables
     var store,
-        btnUpdateName,
-        fldName,
-        showName
+    btnHome,
+    btnBack,
+    btnColDlg
     ;
     //---- End general variables
     
     function setup(){
         setupBindings();
-        refreshFromStore();
+        //refreshFromStore();
+        ////alert("window.hu " + typeof(window.hu.App.home))
+        //alert("App home " + typeof(App.home));
+        OpenMenu.load();
+		OpenMenu.home();		
     }
+
     
     function onBtnNameUpdateClick(){
         console.log('onBtnNameUpdateClick');
@@ -71,21 +76,37 @@
     }
     
     function setupBindings(){
-        fldName = document.getElementById("fldName");
-        showName = document.getElementById("showName");
-        btnUpdateName = document.getElementById("btnUpdateName");
-        btnUpdateName.addEventListener("click", onBtnNameUpdateClick);  
+
+       
+        btnHome = document.getElementById("btnHome");
+        btnHome.addEventListener("click", OpenMenu.home);  
+
+        btnBack = document.getElementById("btnBack");
+        btnBack.addEventListener("click", OpenMenu.back);  
+
+        btnColDlg = document.getElementById("btnColDlg");
+        btnColDlg.addEventListener("click", OpenMenu.showColDlg);  
+  /**/
+
+        // fldName = document.getElementById("fldName");
+        // showName = document.getElementById("showName");
+        // btnUpdateName = document.getElementById("btnUpdateName");
+        // btnUpdateName.addEventListener("click", onBtnNameUpdateClick);  
     }
     
     function refreshFromStore(){
         var tmpName = localStorage.getItem("Name") || '';
-        fldName.value = tmpName;
-        showName.innerHTML = tmpName;
+        // fldName.value = tmpName;
+        // showName.innerHTML = tmpName;
     }
     
     function getLocalStorageByKey() {
         return (localStorage.key(0));
     }
     
+
+    
+
     //--- End Bubble 
-    })();
+    })(hu);
+
