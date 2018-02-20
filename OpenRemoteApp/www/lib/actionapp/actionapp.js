@@ -343,6 +343,9 @@ window.ActionAppCore = {};
         $('[appuse="side-menu"]').sidebar((theIsVis !== false) ? 'show' : 'hide');
         return me;
     }
+    me.sidebarGetDisplay = function () {
+        return $('[appuse="side-menu"]').sidebar('is visible');
+    }
     me.hideSidebar = function () {
         return me.sidebarSetDisplay(false);
     }
@@ -945,7 +948,10 @@ window.ActionAppCore = {};
         var tmpSBSelector = '[semaction="showsidebar"]';
         if ($(tmpSBSelector).length > 0) {
             me.hasSidebar = true;
-            $('[appuse="side-menu"]').sidebar('attach events', tmpSBSelector);
+            $('[appuse="side-menu"]')
+            .sidebar('setting', 'duration', 20)
+            .sidebar('setting', 'mobileTransition', 'fade')            
+            .sidebar('attach events', tmpSBSelector);
         }
     }
     function initGlobalDialog() {

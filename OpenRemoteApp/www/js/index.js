@@ -1,5 +1,5 @@
 (function(){
-
+ 
     ThisApp = null;
     var tmpHasLaunched = false;
     window.setTimeout( function(){
@@ -14,10 +14,34 @@
      var app = {
         // Application Constructor
         initialize: function() {
+            navigator.app.overrideButton("menubutton", true);  // <-- Add this line
             document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
+            document.addEventListener('backbutton', this.onBackButton.bind(this), false);
+            document.addEventListener('menubutton', this.onMenuButton.bind(this), false);
+            document.addEventListener('volumedownbutton', this.onVolDownButton.bind(this), false);
+            document.addEventListener('volumeupbutton', this.onVolUpButton.bind(this), false);
+            
         },
-    
-        // deviceready Event Handler
+        onBackButton: function(){
+          //alert('onBackButton');
+          if( ThisApp.sidebarGetDisplay() ){
+            ThisApp.hideSidebar();
+          }
+          return false;
+        },
+        onVolUpButton: function(){
+          alert('onVolUpButton');
+          return false;
+        },
+        onVolDownButton: function(){
+          alert('onVolDownButton');
+          return false;
+        },
+        onMenuButton: function(){
+          ThisApp.showSidebar();
+          return false;
+        },
+  // deviceready Event Handler
         //
         // Bind any cordova events here. Common events are:
         // 'pause', 'resume', etc.
@@ -38,6 +62,8 @@
     testOutput;
     //---- End general variables
  
+    
+
     var tmpAt = 0;
     function setup(){
         try {
@@ -69,7 +95,8 @@
             var tmpAppCompsToInit = ['WorkspacesPage', 'LogsPage']; //, 'LogsPage'
             //var tmpAppCompsToInit = ['PuppetShow', 'LogsPage'];
             var tmpAppComponents = [ ];
-    
+
+
             ThisApp.useModuleComponents('plugin', tmpPluginComponents)
     
             ThisApp.initModuleComponents(ThisApp, 'app', tmpAppCompsToInit)
