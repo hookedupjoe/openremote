@@ -1,0 +1,2 @@
+cd openremoteapp
+cordova emulate android

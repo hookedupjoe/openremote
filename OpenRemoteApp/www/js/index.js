@@ -1,26 +1,16 @@
-(function(hu){
-    //--- Start Bubble
-    
-    /*
-     * Licensed to the Apache Software Foundation (ASF) under one
-     * or more contributor license agreements.  See the NOTICE file
-     * distributed with this work for additional information
-     * regarding copyright ownership.  The ASF licenses this file
-     * to you under the Apache License, Version 2.0 (the
-     * "License"); you may not use this file except in compliance
-     * with the License.  You may obtain a copy of the License at
-     *
-     * http://www.apache.org/licenses/LICENSE-2.0
-     *
-     * Unless required by applicable law or agreed to in writing,
-     * software distributed under the License is distributed on an
-     * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-     * KIND, either express or implied.  See the License for the
-     * specific language governing permissions and limitations
-     * under the License.
-     */
-    
-     
+(function(){
+
+    ThisApp = null;
+    var tmpHasLaunched = false;
+    window.setTimeout( function(){
+      if( !tmpHasLaunched) {
+        tmpHasLaunched = true;
+        setup();
+      }
+    },1000)
+    //---- ACTUAL CODE ==    
+    ActionAppCore = ActionAppCore || window.ActionAppCore;
+
      var app = {
         // Application Constructor
         initialize: function() {
@@ -32,81 +22,107 @@
         // Bind any cordova events here. Common events are:
         // 'pause', 'resume', etc.
         onDeviceReady: function() {
-            this.receivedEvent('deviceready');
+            tmpHasLaunched = true;
             setup();
+            this.receivedEvent('deviceready');
         },
         // Update DOM on a Received Event
         receivedEvent: function(id) {
-            // var parentElement = document.getElementById(id);
-            // var listeningElement = parentElement.querySelector('.listening');
-            // var receivedElement = parentElement.querySelector('.received');
-    
-            // listeningElement.setAttribute('style', 'display:none;');
-            // receivedElement.setAttribute('style', 'display:block;');
-    
-            // console.log('Received Event: ' + id);
+
         }
     };
     
     app.initialize();
-    
-    //---- general variables
-    var store,
-    btnHome,
-    btnBack,
-    btnColDlg
-    ;
+ 
+    var btnTest,
+    testOutput;
     //---- End general variables
-    
+ 
+    var tmpAt = 0;
     function setup(){
-        setupBindings();
-        //refreshFromStore();
-        ////alert("window.hu " + typeof(window.hu.App.home))
-        //alert("App home " + typeof(App.home));
-        OpenMenu.load();
-		OpenMenu.home();		
+        try {
+
+            var siteMod = ActionAppCore.module('site');
+            ThisApp = new siteMod.CoreApp();
+    
+            /* ****************************************
+            //------------ This App Config
+            //-- "display" Option:  The Links on the top hide when in mobile, the display options control where the links show
+            //     primary = show on top but not in sidebar, then add to sidebar for small screens only
+            //     both = show on top and sidebar, then add to sidebar for small screens only
+            //     primary = show on top but not in sidebar, then add to sidebar for small screens only
+            //     [blank] = blank or missing value will make it show on the left only
+            
+            //--- can start with a configuration like this or none to use defaults
+            //    Defaults: appuse="main-page-container" is the attribute to assign to the container to load into / control
+    
+            ThisApp.config = {
+              "rem-title": "Add a title property to include a site title",
+              "container": '#main-page-body'
+            }
+            
+            */
+            var appModule = ActionAppCore.module('app');
+           
+            var tmpPluginComponents = []; //'DataTables'
+            //'LayoutPage', 'PouchPage', 'DataTablesPage', 'WorkspacesPage', 'LogsPage'
+            var tmpAppCompsToInit = ['WorkspacesPage', 'LogsPage']; //, 'LogsPage'
+            //var tmpAppCompsToInit = ['PuppetShow', 'LogsPage'];
+            var tmpAppComponents = [ ];
+    
+            ThisApp.useModuleComponents('plugin', tmpPluginComponents)
+    
+            ThisApp.initModuleComponents(ThisApp, 'app', tmpAppCompsToInit)
+            ThisApp.useModuleComponents('app', tmpAppComponents)
+    
+            ThisApp.siteLayout = null;
+    
+            ThisApp.refreshLayouts = function (theTargetEl) {
+              ThisApp.siteLayout.resizeAll();
+            }
+            ThisApp.resizeLayouts = function (name, $pane, paneState) {
+              try {
+                var tmpH = $pane.get(0).clientHeight - $pane.get(0).offsetTop - 1;
+                ThisApp.getByAttr$({ appuse: "cards", group: "app:pages", item: '' }).css("height", tmpH + "px");;
+              } catch (ex) {
+    
+              }
+            }
+    
+            ThisApp.siteLayout = $('body').layout({
+              center__paneSelector: ".site-layout-center"
+              , north__paneSelector: ".site-layout-north"
+              , north__spacing_open: 4
+              , north__spacing_closed: 4
+              , north__resizable: false
+              , spacing_open: 6 // ALL panes
+              , spacing_closed: 8 // ALL panes
+              , onready: ThisApp.resizeLayouts
+              , center__onresize: ThisApp.resizeLayouts
+            });
+
+     
+            ThisApp.init();
+          
+
+    
+            ThisApp.aboutThisApp = function(){
+              ThisApp.showCommonDialog({ header: "About this application", content: {data:'', template:'app:about-this-app'} });
+    
+            }
+
+   
+    
+        } catch(ex){
+             console.error("Unexpected Error " + ex);
+        }
+
+        
+  }
+    function runTest(){
+        alert('runTest');
     }
-
-    
-    function onBtnNameUpdateClick(){
-        console.log('onBtnNameUpdateClick');
-        showName.innerHTML = 'Testing';
-        localStorage.setItem("Name", fldName.value || '');
-        refreshFromStore();
-    }
-    
-    function setupBindings(){
-
-       
-        btnHome = document.getElementById("btnHome");
-        btnHome.addEventListener("click", OpenMenu.home);  
-
-        btnBack = document.getElementById("btnBack");
-        btnBack.addEventListener("click", OpenMenu.back);  
-
-        btnColDlg = document.getElementById("btnColDlg");
-        btnColDlg.addEventListener("click", OpenMenu.showColDlg);  
-  /**/
-
-        // fldName = document.getElementById("fldName");
-        // showName = document.getElementById("showName");
-        // btnUpdateName = document.getElementById("btnUpdateName");
-        // btnUpdateName.addEventListener("click", onBtnNameUpdateClick);  
-    }
-    
-    function refreshFromStore(){
-        var tmpName = localStorage.getItem("Name") || '';
-        // fldName.value = tmpName;
-        // showName.innerHTML = tmpName;
-    }
-    
-    function getLocalStorageByKey() {
-        return (localStorage.key(0));
-    }
-    
-
-    
 
     //--- End Bubble 
-    })(hu);
+    })();
 

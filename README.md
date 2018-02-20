@@ -1,28 +1,30 @@
-<!--
-#
-# Licensed to the Apache Software Foundation (ASF) under one
-# or more contributor license agreements.  See the NOTICE file
-# distributed with this work for additional information
-# regarding copyright ownership.  The ASF licenses this file
-# to you under the Apache License, Version 2.0 (the
-# "License"); you may not use this file except in compliance
-# with the License.  You may obtain a copy of the License at
-#
-# http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing,
-# software distributed under the License is distributed on an
-# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-#  KIND, either express or implied.  See the License for the
-# specific language governing permissions and limitations
-# under the License.
-#
--->
-Open Source Remote Control Mobile Application
+# Action Based Application Development
+* Author: Joseph Francis
+* License: MIT
+* 2018
 
-License: Apache
+## Action Application Demo
+This is a super simple but responsive application that uses the following libraries at the core.
+* jQuery
+* Semantic UI
+* jsrender
+* layout
+* toastr
 
-Created using Cordova
+## Design goals
+The design goal for this application was to have a super simple yet modular, responsive and powerful starting point for general applications and developer testing.
 
-Author: Joseph Francis
-hookedupjoe@gmail.com
+### Design concepts ...
+* Actions can be assigned to any element using the "appaction" attribute.  This will cause the action to be triggered when clicked. 
+* Triggered action receive action name and  target element so that attributes and other aspects of the related DOm  control the end result.
+* Define and use "facets" where dynamic content is loaded and manipulated.
+* jsrender templates and/or standard code can populate content in facets or anywhere in the application.
+* A module base application is provided where modules can be plugged in.  The modules should be in their own function "bubble", making it easy to separate parts of the code to isolated memory spaces.
+* A standard site frameork and navigation system is provided that handles the navigational menus in a responsive way and control the hiding / showing of navigational pages on the site.
+
+
+## Design methodology
+This design uses attributes to find and modify DOM elements.<pre>
+< div suchasthisone="somevalue" /></pre> 
+
+ 
