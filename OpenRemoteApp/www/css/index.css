@@ -15,7 +15,6 @@
  * KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations
  * under the License.
- */
 
 html {
     font-family: sans-serif;
@@ -24,9 +23,9 @@ body {
 margin: 0;
 }
 
-/* Portrait layout (default) */
+
 .app {
-                                   /* offset horizontal: half of text area width */
+   
 }
 
 
@@ -36,8 +35,6 @@ margin: 0;
     color:darkblue;
     font-size:18px;
 }
-
-/*  APP */
 
 
 button,
@@ -214,3 +211,4 @@ html input[type="button"],
     width: 150px;
 }
 
+*/

@@ -147,7 +147,7 @@ License: MIT
 
     var tmpModuleTemplates = {};
     
-    tmpModuleTemplates[thisSiteSpecs.pageActionPrefix +":page-header"] = '<div class="ui pointing menu" style="padding-bottom:0;margin-bottom:0"> <a appuse="tablinks" group="ws:tabs" item="home" action="showSubPage" class="active item">Dashboard</a> <a appuse="tablinks" group="ws:tabs" item="all" action="showSubPage" class="item">Workspaces</a> <a appuse="tablinks" group="ws:tabs" item="more" action="showSubPage" class="item">More</a>';
+    tmpModuleTemplates[thisSiteSpecs.pageActionPrefix +":page-header"] = '<div class="ui menu" style="padding-bottom:0;margin-bottom:0"> <a appuse="tablinks" group="ws:tabs" item="home" action="showSubPage" class="active item">Dashboard</a> <a appuse="tablinks" group="ws:tabs" item="all" action="showSubPage" class="item">Workspaces</a> <a appuse="tablinks" group="ws:tabs" item="more" action="showSubPage" class="item">More</a>';
 
     tmpModuleTemplates[thisSiteSpecs.pageActionPrefix +":page-footer"] = '<h1>Workspaces Footer</h1>';
     var tmpAllBody = '';

@@ -1101,7 +1101,7 @@ window.ActionAppCore = {};
         "tpl-top-menu-button": '<a appaction="{{:appaction}}" class="ui button">{{:title}}</a>'});
 
     $.templates({
-        "tpl-top-menu": '<div class=" ui vertical masthead center aligned segment"> <div class="rem-ui rem-container"> {{if (title != null)}} <h1>{{:title}}</h1> {{/if}} <div appuse="topmenu" class="ui large secondary pointing menu"> {{for navlinks tmpl="tpl-top-menu-item"/}} <div class="right item"> {{for navbuttons tmpl="tpl-top-menu-button"/}} </div> </div> </div> </div> '});
+        "tpl-top-menu": '<div class=" ui vertical masthead center aligned segment"> <div class="rem-ui rem-container"> {{if (title != null)}} <h1>{{:title}}</h1> {{/if}} <div appuse="topmenu" class="ui large secondary menu"> {{for navlinks tmpl="tpl-top-menu-item"/}} <div class="right item"> {{for navbuttons tmpl="tpl-top-menu-button"/}} </div> </div> </div> </div> '});
 
     $.templates({
             "app:about-this-app": '<div class=""> This is an application based on the ActionApp design. <hr /> See the source code for details. </div>' });

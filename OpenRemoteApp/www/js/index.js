@@ -119,8 +119,8 @@
             ThisApp.siteLayout = $('body').layout({
               center__paneSelector: ".site-layout-center"
               , north__paneSelector: ".site-layout-north"
-              , north__spacing_open: 4
-              , north__spacing_closed: 4
+              , north__spacing_open: 0
+              , north__spacing_closed: 0
               , north__resizable: false
               , spacing_open: 6 // ALL panes
               , spacing_closed: 8 // ALL panes
