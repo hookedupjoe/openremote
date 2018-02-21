@@ -884,7 +884,9 @@ window.ActionAppCore = {};
           var tmpEl$ = $(this);
           var tmpKey = "" + tmpEl$.attr(tmpAttrName);
           //--- Add innerHTML to the templates object
-          tmpAllTemplates[tmpKey] = this.innerHTML;
+          tmpAllTemplates[tmpKey] = "" + this.innerHTML;
+          //--- clear so there is only one
+          this.innerHTML = '';
         });
         //--- Compile them all at once
         $.templates(tmpAllTemplates);
@@ -1073,7 +1075,6 @@ window.ActionAppCore = {};
 
         var tmpHeaderHTML = $.templates['tpl-top-menu'].render(me.config);
         $('[appuse="top-menu"]').html(tmpHeaderHTML);
-         /* */
 
         initAppActions();
 
@@ -1098,29 +1099,29 @@ window.ActionAppCore = {};
     //--- Templates ========== ========== ========== ========== ========== ========== ========== ========== ========== ========== 
     //--- ========  ========== ========== ========== ========== ========== ========== ========== ========== ========== ========== 
     //--- ========  ========== ========== ========== ========== ========== ========== ========== ========== ========== ========== 
-    $.templates({
-        "tpl-standard-loading-icon": '<div> <i class="huge icons"> <i class="big loading spinner icon"></i> </i> </div>'});
+    // $.templates({
+    //     "tpl-standard-loading-icon": '<div> <i class="huge icons"> <i class="big loading spinner icon"></i> </i> </div>'});
 
-    $.templates({
-        "tpl-border-layout": '{{if (layoutOptions.north != false)}} <div facet="{{>layoutOptions.facetPrefix}}:north" class="middle-north"> {{if (layoutOptions.northContent)}} {{:layoutOptions.northContent}} {{/if}} </div> {{/if}} {{if (layoutOptions.south != false)}} <div facet="{{>layoutOptions.facetPrefix}}:south" class="middle-south"> {{if (layoutOptions.southContent)}} {{:layoutOptions.southContent}} {{/if}} </div> {{/if}} <div facet="{{>layoutOptions.facetPrefix}}:center" class="middle-center"> {{if (layoutOptions.centerContent)}} {{:layoutOptions.centerContent}} {{/if}} </div> {{if (layoutOptions.west != false)}} <div facet="{{>layoutOptions.facetPrefix}}:west" class="middle-west"> {{if (layoutOptions.westContent)}} {{:layoutOptions.westContent}} {{/if}} </div> {{/if}} {{if (layoutOptions.east != false)}} <div facet="{{>layoutOptions.facetPrefix}}:east" class="middle-east"> {{if (layoutOptions.eastContent)}} {{:layoutOptions.eastContent}} {{/if}} </div> {{/if}}'});
+    // $.templates({
+    //     "tpl-border-layout": '{{if (layoutOptions.north != false)}} <div facet="{{>layoutOptions.facetPrefix}}:north" class="middle-north"> {{if (layoutOptions.northContent)}} {{:layoutOptions.northContent}} {{/if}} </div> {{/if}} {{if (layoutOptions.south != false)}} <div facet="{{>layoutOptions.facetPrefix}}:south" class="middle-south"> {{if (layoutOptions.southContent)}} {{:layoutOptions.southContent}} {{/if}} </div> {{/if}} <div facet="{{>layoutOptions.facetPrefix}}:center" class="middle-center"> {{if (layoutOptions.centerContent)}} {{:layoutOptions.centerContent}} {{/if}} </div> {{if (layoutOptions.west != false)}} <div facet="{{>layoutOptions.facetPrefix}}:west" class="middle-west"> {{if (layoutOptions.westContent)}} {{:layoutOptions.westContent}} {{/if}} </div> {{/if}} {{if (layoutOptions.east != false)}} <div facet="{{>layoutOptions.facetPrefix}}:east" class="middle-east"> {{if (layoutOptions.eastContent)}} {{:layoutOptions.eastContent}} {{/if}} </div> {{/if}}'});
 
-    $.templates({
-        "tpl-common-global-dialog":'<div appuse="global-dialog" class="ui modal"> <i class="close icon"></i> <div facet="site:dialog-header" class="header"></div> <div facet="site:dialog-content" class="content"> </div> {{if (actions != null && actions != "")}} <div facet="site:dialog-actions" class="actions"></div> {{/if}} </div>'});
+    // $.templates({
+    //     "tpl-common-global-dialog":'<div appuse="global-dialog" class="ui modal"> <i class="close icon"></i> <div facet="site:dialog-header" class="header"></div> <div facet="site:dialog-content" class="content"> </div> {{if (actions != null && actions != "")}} <div facet="site:dialog-actions" class="actions"></div> {{/if}} </div>'});
 
-    $.templates({
-        "tpl-side-menu-item": '<a appuse="tablinks" group="app:pages" item="{{:name}}" appaction="showPage" class="{{if display == "primary"}}mobileonly{{/if}} item">{{:title}}</a>'});
+    // $.templates({
+    //     "tpl-side-menu-item": '<a appuse="tablinks" group="app:pages" item="{{:name}}" appaction="showPage" class="{{if display == "primary"}}mobileonly{{/if}} item">{{:title}}</a>'});
 
-    $.templates({
-        "tpl-nav-menu-item": '<a appuse="tablinks" group="app:pages" item="{{:name}}" appaction="showPage" class="{{if display == "primary"}}mobileonly{{/if}} item">{{:title}}</a>'});
+    // $.templates({
+    //     "tpl-nav-menu-item": '<a appuse="tablinks" group="app:pages" item="{{:name}}" appaction="showPage" class="{{if display == "primary"}}mobileonly{{/if}} item">{{:title}}</a>'});
 
-    $.templates({
-        "tpl-top-menu-item": '{{if (display == "primary" || display == "both")}}<a appuse="tablinks" group="app:pages" item="{{:name}}" appaction="showPage" class="mobilehidden item">{{:title}}</a>{{/if}}'});
+    // $.templates({
+    //     "tpl-top-menu-item": '{{if (display == "primary" || display == "both")}}<a appuse="tablinks" group="app:pages" item="{{:name}}" appaction="showPage" class="mobilehidden item">{{:title}}</a>{{/if}}'});
 
-    $.templates({
-        "tpl-top-menu-button": '<a appaction="{{:appaction}}" class="ui button">{{:title}}</a>'});
+    // $.templates({
+    //     "tpl-top-menu-button": '<a appaction="{{:appaction}}" class="ui button">{{:title}}</a>'});
 
-    $.templates({
-        "tpl-top-menu": '<div class=" ui vertical masthead center aligned segment"> <div class="rem-ui rem-container"> {{if (title != null)}} <h1>{{:title}}</h1> {{/if}} <div appuse="topmenu" class="ui large secondary menu"> {{for navlinks tmpl="tpl-top-menu-item"/}} <div class="right item"> {{for navbuttons tmpl="tpl-top-menu-button"/}} </div> </div> </div> </div> '});
+    // $.templates({
+    //     "tpl-top-menu": '<div class=" ui vertical masthead center aligned segment"> <div class="rem-ui rem-container"> {{if (title != null)}} <h1>{{:title}}</h1> {{/if}} <div appuse="topmenu" class="ui large secondary menu"> {{for navlinks tmpl="tpl-top-menu-item"/}} <div class="right item"> {{for navbuttons tmpl="tpl-top-menu-button"/}} </div> </div> </div> </div> '});
 
 
 

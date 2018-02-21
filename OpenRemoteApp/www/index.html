@@ -93,18 +93,67 @@
 
   <div facet="site:global-dialog" class="hidden"></div>
 
-  Loading, please wait ....
+  <!-- <div app-use="app-loader"> <i class="huge icons"> <i class="big loading spinner icon"></i> </i> </div> -->
 
-<!--   Inline Templates -->  
+<!--   Inline Templates === === === === === === === === === === === === === === ===  -->  
 <div style="display:none">
   
-  <pre data-tpl="app:about-this-app">
+  <!-- === -->  
+  <script data-tpl="app:about-this-app" type="text/x-jsrender">
       <div class="">
           This is an application based on the ActionApp design and converted for Cordova Use.
           <hr />
           See the readme file and code for details.
       </div>
-  </pre>
+  </script>
+
+  <!-- === -->  
+  <script data-tpl="tpl-standard-loading-icon" type="text/x-jsrender">
+      <div>
+        <i class="huge icons">
+          <i class="big loading spinner icon"></i>
+        </i>
+      </div>
+  </script>
+  <script data-tpl="tpl-border-layout" type="text/x-jsrender">
+    {{if (layoutOptions.north != false)}}
+    <div facet="{{>layoutOptions.facetPrefix}}:north" class="middle-north"> {{if (layoutOptions.northContent)}} {{:layoutOptions.northContent}} {{/if}} </div> {{/if}} {{if (layoutOptions.south != false)}}
+    <div facet="{{>layoutOptions.facetPrefix}}:south" class="middle-south"> {{if (layoutOptions.southContent)}} {{:layoutOptions.southContent}} {{/if}} </div> {{/if}}
+    <div facet="{{>layoutOptions.facetPrefix}}:center" class="middle-center"> {{if (layoutOptions.centerContent)}} {{:layoutOptions.centerContent}} {{/if}} </div> {{if (layoutOptions.west != false)}}
+    <div facet="{{>layoutOptions.facetPrefix}}:west" class="middle-west"> {{if (layoutOptions.westContent)}} {{:layoutOptions.westContent}} {{/if}} </div> {{/if}} {{if (layoutOptions.east != false)}}
+    <div facet="{{>layoutOptions.facetPrefix}}:east" class="middle-east"> {{if (layoutOptions.eastContent)}} {{:layoutOptions.eastContent}} {{/if}} </div> {{/if}}
+   </script>
+
+  <script data-tpl="tpl-common-global-dialog" type="text/x-jsrender">
+      <div appuse="global-dialog" class="ui modal">
+          <i class="close icon"></i>
+          <div facet="site:dialog-header" class="header"></div>
+          <div facet="site:dialog-content" class="content"> </div>
+          <div facet="site:dialog-actions" class="actions"></div>
+        </div>        
+  </script>
+  <script data-tpl="tpl-side-menu-item" type="text/x-jsrender">
+      <a appuse="tablinks" group="app:pages" item="{{:name}}" appaction="showPage" class="{{if display == 'primary'}}mobileonly{{/if}} item">{{:title}}</a>
+  </script>
+  <script data-tpl="tpl-nav-menu-item" type="text/x-jsrender">
+      <a appuse="tablinks" group="app:pages" item="{{:name}}" appaction="showPage" class="{{if display == 'primary'}}mobileonly{{/if}} item">{{:title}}</a>
+  </script>
+  <script data-tpl="tpl-top-menu-item" type="text/x-jsrender">
+      {{if (display == "primary" || display == "both")}}<a appuse="tablinks" group="app:pages" item="{{:name}}" appaction="showPage" class="mobilehidden item">{{:title}}</a>{{/if}}
+  </script>
+  <script data-tpl="tpl-top-menu-button" type="text/x-jsrender">
+      <a appaction="{{:appaction}}" class="ui button">{{:title}}</a>
+  </script>
+  <script data-tpl="tpl-top-menu" type="text/x-jsrender">
+      <div class=" ui vertical masthead center aligned segment"> <div class="rem-ui rem-container"> {{if (title != null)}} <h1>{{:title}}</h1> {{/if}} <div appuse="topmenu" class="ui large secondary menu"> {{for navlinks tmpl="tpl-top-menu-item"/}} <div class="right item"> {{for navbuttons tmpl="tpl-top-menu-button"/}} </div> </div> </div> </div> 
+  </script> 
+<!---->
+
+  <!-- <script data-tpl="templatename">
+    HTML HERE
+  </script> -->
+
+
 
 </div>
 
