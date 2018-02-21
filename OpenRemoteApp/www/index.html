@@ -109,6 +109,9 @@
   <script data-tpl="app-logs-message-center-item" type="text/x-jsrender">
     <div class="ui {{:type}} message" style="margin:0;margin-top:2px;"> <div class="header"> {{:title}} </div> {{:text}} </div>
   </script>
+  <script data-htpl="logs:msg-ctr-item" type="text/x-htpl">
+    {{#each messages}}<div class="ui {{type}} message" style="margin:0;margin-top:2px;"> <div class="header"> {{title}} </div> {{text}} </div>{{/each}}
+  </script>
 
   <!-- === -->  
   <script data-tpl="tpl-standard-loading-icon" type="text/x-jsrender">
@@ -170,6 +173,7 @@
   <script src="lib/semantic/dist/semantic.min.js"></script>
   <script src="lib/rangeslider/dist/rangeslider.min.js"></script>
   <script src="lib/jsrender/jsrender.min.js"></script>
+  <script src="lib/handlebars/handlebars.min.js"></script>
   <script src="lib/toastr/toastr.min.js"></script>
 
   <script src="lib/jqueryui/jquery-ui.min.js"></script>

@@ -881,17 +881,43 @@ window.ActionAppCore = {};
         var tmpAllTemplates = {};
         //--- Get all elements with this attribute
         ThisApp.getByAttr$(tmpSelector, theOptionalTarget).each(function(theIndex) {
+            var tmpEl$ = $(this);
+            var tmpKey = "" + tmpEl$.attr(tmpAttrName);
+            //--- Add innerHTML to the templates object
+            tmpAllTemplates[tmpKey] = "" + this.innerHTML;
+            //--- clear so there is only one
+            this.innerHTML = '';
+        });
+        //--- Compile them all at once
+        $.templates(tmpAllTemplates);
+    }
+
+    //me.htmlHandlebars = {};
+    me.tplHandlebars = {};
+    me.renderTemplate = function(theName, theContext){
+        try {
+            return (ThisApp.tplHandlebars[theName])(theContext);
+        } catch (theError) {
+            console.error("Error rendering template " + theError);
+        }
+    }
+    me.compileHandlebars = function(theOptionalAttrName, theOptionalTarget){
+        var tmpAttrName = theOptionalAttrName || "data-htpl";
+        var tmpSelector = {};
+        //--- Init what to look for, anything with this attribute
+        tmpSelector[tmpAttrName] = "";
+        //--- Get all elements with this attribute
+        ThisApp.getByAttr$(tmpSelector, theOptionalTarget).each(function(theIndex) {
           var tmpEl$ = $(this);
           var tmpKey = "" + tmpEl$.attr(tmpAttrName);
           //--- Add innerHTML to the templates object
-          tmpAllTemplates[tmpKey] = "" + this.innerHTML;
+          //me.htmlHandlebars[tmpKey] = "" + this.innerHTML;
+          me.tplHandlebars[tmpKey] = Handlebars.compile(this.innerHTML);          
           //--- clear so there is only one
           this.innerHTML = '';
         });
         //--- Compile them all at once
-        $.templates(tmpAllTemplates);
       }
-
     //--- App Actions ========== ========== ========== ========== ========== ========== ========== ========== ========== ========== 
     //--- ========  ========== ========== ========== ========== ========== ========== ========== ========== ========== ========== 
 
@@ -1198,9 +1224,6 @@ License: MIT
         if( !this.pageTemplate || this.layoutOptions ){
             this.layoutOptions = this.layoutOptions || {};
             this.layoutConfig = $.extend({}, defaultLayoutOptions, (this.options.layoutConfig || {}));
-            if( this.options.layoutConfig ){
-                console.log("this.layoutConfig", this.layoutConfig);
-            }
 
             //--- Use standard border layout template if none provided
             this.layoutOptions.facetPrefix = this.layoutOptions.facetPrefix || this.pageName;
@@ -1253,8 +1276,8 @@ License: MIT
             this.app = theApp;
         }
 
-        if (typeof (this.preInit) == 'function') {
-            this.preInit(this.app)
+        if (typeof (this._onPreInit) == 'function') {
+            this._onPreInit(this.app)
         }
 
         if (this.app && this.pageActionPrefix && this.pageActionPrefix != '') {
@@ -1268,15 +1291,15 @@ License: MIT
                 "name": this.pageName,
                 "title": this.pageTitle,
                 "display": this.linkDisplayOption,
-                "onActivate": onActivateThisPage
+                "onActivate": onActivateThisPage.bind(this)
             })
             //theApp.config.navlinks.push()
             var tmpContentHTML = $.templates[this.pageTemplate].render(this);
             this.parentEl = this.app.getByAttr$({ group: "app:pages", item: this.pageName })
             this.parentEl.html(tmpContentHTML);
 
-            if (typeof (this.compInit) == 'function') {
-                this.compInit(this.app)
+            if (typeof (this._onInit) == 'function') {
+                this._onInit(this.app)
             }
 
             if( this.layoutOptions && this.layoutConfig){
@@ -1307,20 +1330,19 @@ License: MIT
         }
     }
 
+    //--- Hook into the app lifecycle and pass it along
     function onActivateThisPage() {
         //-refresh local message details everytime we change to this view
-        onActivate();
+        if(typeof(this._onLoad) == 'function'){
+            this._onLoad();
+        }
         if (this.hasRefreshed) {
             return;
         }
         this.hasRefreshed = true;
-        onInitialLoad();
-    }
-    function onInitialLoad() {
-        // console.info("Logs Page - Initial Load")
-    }
-    function onActivate() {
-
+        if(typeof(this._onFirstLoad) == 'function'){
+            this._onFirstLoad();
+        }
     }
 
 

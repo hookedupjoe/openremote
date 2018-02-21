@@ -31,53 +31,30 @@ License: MIT
     var ThisPage = new SiteMod.SitePage(thisSiteSpecs);
 
     
-    var tmpModuleTemplates = {};
-    tmpModuleTemplates[thisSiteSpecs.pageActionPrefix +":page-header"] = '<div class="ui menu" style="padding-bottom:0;margin-bottom:0"> <a appuse="tablinks" group="ws:tabs" item="home" action="showSubPage" class="active item">Dashboard</a> <a appuse="tablinks" group="ws:tabs" item="all" action="showSubPage" class="item">Workspaces</a> <a appuse="tablinks" group="ws:tabs" item="more" action="showSubPage" class="item">More</a>';
-    tmpModuleTemplates[thisSiteSpecs.pageActionPrefix +":page-footer"] = '<h1>Workspaces Footer</h1>';
-    var tmpAllBody = '';
-    tmpAllBody += '<div appuse="cards" group="ws:tabs" item="home"> <div class="ui" style="padding-top:5px;margin-top:0px;min-height:300px;"> <div class="requests-outline"> <svg facet="ws:home-svg" viewBox="0 0 800 800" style="padding:0;margin:0;min-height:400px;background-color:black"> </div> <div class="requests-details"> <div class="ui menu flow middle" style=""> <div class=""> <div action="ws:runTest1" class="ui primary basic icon button"><i class="icon home"></i></div> </div> <div class="item"> <div action="ws:addBox" class="ui purple basic button">Add Box</div> </div> </div> <div facet="ws:home-out"></div> </div> </div> </div> <div appuse="cards" group="ws:tabs" item="all" class="hidden"> <div>Workspace: <b><span facet="ws:currentWorkspace">';
-    tmpAllBody += '';
-    tmpAllBody += '</span></b></div> <div class="ui menu flow middle" style=""> <div class="item"> <div action="ws:gotoMainWorkspace" class="ui primary basic icon button"><i class="icon home"></i></div> </div> <div class="item"> <div action="ws:workspaceTest" class="ui purple basic button">Workspace Testing</div> </div> </div> <div facet="ws:workspaces-out"></div> </div> <div appuse="cards" group="ws:tabs" item="more" class="hidden"> <div class="ui segment"> <p>Testing some values here</p> <div class="ui active"> <div class="ui loader"></div> </div> </div> </div> </div>';
-    tmpModuleTemplates[thisSiteSpecs.pageActionPrefix +":page-body"] = tmpAllBody;
-    tmpModuleTemplates["svg-test-1"] = 'NO SVG';
-    ThisPage.templates = tmpModuleTemplates;
+
     //$.templates(tmpModuleTemplates);
 
     
-    ThisPage.compInit = compInit;
-    function compInit() {
+    ThisPage._onFirstLoad = function() {
+        var tmpModuleTemplates = {};
+        tmpModuleTemplates[thisSiteSpecs.pageActionPrefix +":page-header"] = '<div class="ui menu" style="padding-bottom:0;margin-bottom:0"> <a appuse="tablinks" group="ws:tabs" item="home" action="showSubPage" class="active item">Dashboard</a> <a appuse="tablinks" group="ws:tabs" item="all" action="showSubPage" class="item">Workspaces</a> <a appuse="tablinks" group="ws:tabs" item="more" action="showSubPage" class="item">More</a>';
+        tmpModuleTemplates[thisSiteSpecs.pageActionPrefix +":page-footer"] = '<h1>Workspaces Footer</h1>';
+        var tmpAllBody = '';
+        tmpAllBody += '<div appuse="cards" group="ws:tabs" item="home"> <div class="ui" style="padding-top:5px;margin-top:0px;min-height:300px;"> <div class="requests-outline"> <svg facet="ws:home-svg" viewBox="0 0 800 800" style="padding:0;margin:0;min-height:400px;background-color:black"> </div> <div class="requests-details"> <div class="ui menu flow middle" style=""> <div class=""> <div action="ws:runTest1" class="ui primary basic icon button"><i class="icon home"></i></div> </div> <div class="item"> <div action="ws:addBox" class="ui purple basic button">Add Box</div> </div> </div> <div facet="ws:home-out"></div> </div> </div> </div> <div appuse="cards" group="ws:tabs" item="all" class="hidden"> <div>Workspace: <b><span facet="ws:currentWorkspace">';
+        tmpAllBody += '';
+        tmpAllBody += '</span></b></div> <div class="ui menu flow middle" style=""> <div class="item"> <div action="ws:gotoMainWorkspace" class="ui primary basic icon button"><i class="icon home"></i></div> </div> <div class="item"> <div action="ws:workspaceTest" class="ui purple basic button">Workspace Testing</div> </div> </div> <div facet="ws:workspaces-out"></div> </div> <div appuse="cards" group="ws:tabs" item="more" class="hidden"> <div class="ui segment"> <p>Testing some values here</p> <div class="ui active"> <div class="ui loader"></div> </div> </div> </div> </div>';
+        tmpModuleTemplates[thisSiteSpecs.pageActionPrefix +":page-body"] = tmpAllBody;
+        tmpModuleTemplates["svg-test-1"] = 'NO SVG';
+        ThisPage.templates = tmpModuleTemplates;
+        //-- were sep
         var tmpTPLS = ThisPage.templates;
         ThisPage.loadRegion('north', tmpTPLS[thisSiteSpecs.pageActionPrefix + ':page-header']);
         ThisPage.loadRegion('south', tmpTPLS[thisSiteSpecs.pageActionPrefix + ':page-footer']);
         ThisPage.loadRegion('center', tmpTPLS[thisSiteSpecs.pageActionPrefix + ':page-body']);
     }
 
-    ThisPage.currentSessionDB = 'dbname';
-
-    ThisPage.LocalCouchUser = 'adminapi';
-    ThisPage.LocalCouchPassword = 'asldksdijfjd11joijs3';
-
     //---- ---- ---- ---- ---- ---- ---- ---- ---- ---- 
     ThisPage.currentWorkspace = 'default';
-
-    //--- Used to ellipse text
-    function textEllipsis(el, text, width) {
-        el.textContent = text;
-        width -= 2;
-        if (typeof el.getComputedTextLength !== "undefined") {
-            while (el.getComputedTextLength() >= width) {
-                text = text.slice(0, -1);
-                el.textContent = text + "...";
-            }
-        } else {
-            // the last fallback
-            while (el.getBBox().width >= width) {
-                text = text.slice(0, -1);
-                // we need to update the textContent to update the boundary width
-                el.textContent = text + "...";
-            }
-        }
-    }
 
     ThisPage.boxCount = 0;
 

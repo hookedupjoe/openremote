@@ -90,6 +90,7 @@
             var siteMod = ActionAppCore.module('site');
             ThisApp = new siteMod.CoreApp();
             ThisApp.compileTemplates();
+            ThisApp.compileHandlebars();
     
             /* ****************************************
             //------------ This App Config
