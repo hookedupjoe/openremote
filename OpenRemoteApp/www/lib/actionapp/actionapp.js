@@ -845,14 +845,8 @@ window.ActionAppCore = {};
      *    - Returns HTML rendered from a template using jsrender
      * 
      * 
-     * Example: 
-     *   ThisApp.showCommonDialog('sometempaltename');
-     *   ThisApp.showCommonDialog('sometempaltename',someData);
-     *   ThisApp.showCommonDialog({tempate:'sometempaltename'});
-     *   ThisApp.showCommonDialog({tempate:'sometempaltename', data:someData});
-     *
-     * @param  {String} theActionDelegateName   [the prefix to use (do not iclude the ":")]
-     * @param  {Function} theDelegate   [The standard "Action" function to handle the action pass (action name, target object)]
+     * @param  {String or Object} theOptionsOrTemplateName  Pass in object with .template and .data .. or just a template name and pass data as second param
+     * @param  {Object} theDataIfNotObject  The data object if not part of initial param
      * @return void
      */
     me.getTemplatedContent = function (theOptionsOrTemplateName, theDataIfNotObject) {
@@ -870,6 +864,31 @@ window.ActionAppCore = {};
         return $.templates[tmpTemplateName].render(tmpData);
     }
 
+    /**
+     * compileTemplates
+     *    - Looks for <pre> or <script> objects that contain template markup
+     *    - Get the name of the attribute and the content, add the content to the templates with the attribute name
+     *
+     * @param  {String} theOptionalAttrName  Pass in the attribute name to look for templats inside
+     * @param  {Object} theOptionalAttrName  Pass in the parent jQuery element to start with, uses default for getByAttr if not provided
+     * @return void
+     */
+    me.compileTemplates = function(theOptionalAttrName, theOptionalTarget){
+        var tmpAttrName = theOptionalAttrName || "data-tpl";
+        var tmpSelector = {};
+        //--- Init what to look for, anything with this attribute
+        tmpSelector[tmpAttrName] = "";
+        var tmpAllTemplates = {};
+        //--- Get all elements with this attribute
+        ThisApp.getByAttr$(tmpSelector, theOptionalTarget).each(function(theIndex) {
+          var tmpEl$ = $(this);
+          var tmpKey = "" + tmpEl$.attr(tmpAttrName);
+          //--- Add innerHTML to the templates object
+          tmpAllTemplates[tmpKey] = this.innerHTML;
+        });
+        //--- Compile them all at once
+        $.templates(tmpAllTemplates);
+      }
 
     //--- App Actions ========== ========== ========== ========== ========== ========== ========== ========== ========== ========== 
     //--- ========  ========== ========== ========== ========== ========== ========== ========== ========== ========== ========== 
@@ -1103,8 +1122,6 @@ window.ActionAppCore = {};
     $.templates({
         "tpl-top-menu": '<div class=" ui vertical masthead center aligned segment"> <div class="rem-ui rem-container"> {{if (title != null)}} <h1>{{:title}}</h1> {{/if}} <div appuse="topmenu" class="ui large secondary menu"> {{for navlinks tmpl="tpl-top-menu-item"/}} <div class="right item"> {{for navbuttons tmpl="tpl-top-menu-button"/}} </div> </div> </div> </div> '});
 
-    $.templates({
-            "app:about-this-app": '<div class=""> This is an application based on the ActionApp design. <hr /> See the source code for details. </div>' });
 
 
 

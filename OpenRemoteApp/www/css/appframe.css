@@ -292,3 +292,8 @@
     .ui.visible.uncover.sidebar {
       z-index: 3;
     }
+
+    /* Semantic UI Override / Fixes ?? */
+    .ui.modal>.content {
+      width:auto !important;
+    }
